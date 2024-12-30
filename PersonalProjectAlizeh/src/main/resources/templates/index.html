@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Finance Tracker</title>
+    <link rel="stylesheet" href="/css/styles.css">
+ 
+</head>
+<body>
+
+    <h1>Finance Tracker</h1>
+
+    <h3>Income</h3>
+    <table th:if="${incomeList != null && !incomeList.isEmpty()}">
+        <thead>
+            <tr>
+                <th>Income Amount</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="income : ${incomeList}">
+                <td th:text="${income.amount}">Income Amount</td>
+                <td>
+                    <a th:href="@{'/editIncomeById/' + ${income.id}}">Edit</a>
+                    <a th:href="@{'/deleteIncomeById/' + ${income.id}}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form method="post" th:action="@{/addIncome}" th:object="${income}">
+        <input type="hidden" th:field="*{id}" />
+        <label>Income Amount: </label><input type="number" th:field="*{amount}" required /><br>
+        <input type="submit" value="Add Income" />
+    </form>
+
+    <h3>Expense</h3>
+    <table th:if="${expenseList != null && !expenseList.isEmpty()}">
+        <thead>
+            <tr>
+                <th>Expense Amount</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="expense : ${expenseList}">
+                <td th:text="${expense.amount}">Expense Amount</td>
+                <td>
+                    <a th:href="@{'/editExpenseById/' + ${expense.id}}">Edit</a>
+                    <a th:href="@{'/deleteExpenseById/' + ${expense.id}}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form method="post" th:action="@{/addExpense}" th:object="${expense}">
+        <input type="hidden" th:field="*{id}" />
+        <label>Expense Amount: </label><input type="number" th:field="*{amount}" required /><br>
+        <input type="submit" value="Add Expense" />
+    </form>
+
+    <h3>Budget</h3>
+    <table th:if="${budgetList != null && !budgetList.isEmpty()}">
+        <thead>
+            <tr>
+                <th>Budget Amount</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="budget : ${budgetList}">
+                <td th:text="${budget.amount}">Budget Amount</td>
+                <td>
+                    <a th:href="@{'/editBudgetById/' + ${budget.id}}">Edit</a>
+                    <a th:href="@{'/deleteBudgetById/' + ${budget.id}}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form method="post" th:action="@{/addBudget}" th:object="${budget}">
+        <input type="hidden" th:field="*{id}" />
+        <label>Budget Amount: </label><input type="number" th:field="*{amount}" required /><br>
+        <input type="submit" value="Add Budget" />
+    </form>
+
+</body>
+</html>
